@@ -25,6 +25,24 @@ $f3->route('GET /' ,function () {
 
 });
 
+//personal route
+$f3->route('GET /personal' ,function () {
+    //echo "<h1>hello world</h1>";
+
+    $view = new Template();
+    echo $view->render('views/personal.html');
+
+});
+//profile route
+$f3->route('GET /profile' ,function () {
+    //echo "<h1>hello world</h1>";
+
+    $view = new Template();
+    echo $view->render('views/profile.html');
+
+});
+
+
 
 //run fat free
 $f3->run();
