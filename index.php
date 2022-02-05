@@ -4,10 +4,17 @@
 //
 // this is my controler
 
+//turn on buffering
+ob_start();
+
 // turnon error reporting
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
+//start session
+session_start();
+
+var_dump($_SESSION);
 
 //require autoload file
 require_once ('vendor/autoload.php');
@@ -26,16 +33,34 @@ $f3->route('GET /' ,function () {
 });
 
 //personal route
-$f3->route('GET /personal' ,function () {
+$f3->route('GET|POST /personal' ,function ($f3) {
     //echo "<h1>hello world</h1>";
-
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_SESSION['fname']=$_POST['fname'];
+        $_SESSION['lname']=$_POST['lname'];
+        $_SESSION['age']=$_POST['age'];
+        $_SESSION['gen']=$_POST['gen'];
+        $_SESSION['phone']=$_POST['phone'];
+        //redirect user to next page
+        $f3->reroute('profile');
+    }
     $view = new Template();
     echo $view->render('views/personal.html');
 
 });
 //profile route
-$f3->route('GET /profile' ,function () {
+$f3->route('GET|POST /profile' ,function ($f3) {
     //echo "<h1>hello world</h1>";
+
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $_SESSION['email']=$_POST['email'];
+        $_SESSION['state']=$_POST['state'];
+        $_SESSION['seek']=$_POST['seek'];
+        $_SESSION['bio']=$_POST['bio'];
+
+        //redirect user to next page
+        $f3->reroute('intrest');
+    }
 
     $view = new Template();
     echo $view->render('views/profile.html');
@@ -46,3 +71,6 @@ $f3->route('GET /profile' ,function () {
 
 //run fat free
 $f3->run();
+
+//ob flush
+ob_flush();

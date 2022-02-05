@@ -1,1 +1,76 @@
+
 <include href="views/header.html"></include>
+<!--end nav bar-->
+
+
+<!--end header-->
+
+<!--body start-->
+
+    <div class="container container-fluid border border-secondary mt-5 rounded shadow" >
+        <h1>Profile</h1>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6 ">
+
+                <form action="#" method="post" >
+                    <!--email-->
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+                    </div>
+                    <!--state-->
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" class="form-control" id="state" placeholder="Washington" value="Washington" name="state">
+                    </div>
+                    <!--seeking----radio gender-->
+                    <p>Seeking</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="seek" id="inlineRadio1" value="male">
+                        <label class="form-check-label" for="inlineRadio1">male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="seek" id="inlineRadio2" value="female">
+                        <label class="form-check-label" for="inlineRadio2">female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="seek" id="inlineRadio3" value="other" >
+                        <label class="form-check-label" for="inlineRadio3">other</label>
+                    </div>
+                    <!--end radio-->
+
+
+                <hr>
+
+
+            </div>
+
+            <div class="col-sm-6 " >
+                <div class="container container-fluid  " >
+                    <div class="form-group">
+                        <label for="bio">bio</label>
+                        <textarea class="form-control" id="bio" ></textarea>
+                        <!--<input type="text" class="form-control" id="bio" placeholder="bio">-->
+                    </div>
+
+                    </div>
+
+                </div>
+
+    </div><!--end row-->
+        <!--button-->
+        <div class="text-right ">
+            <input type="submit"  class="btn btn-primary btn-sm mb-2" value="next" >
+        </div>
+        </form>
+</div><!--maincontainer-->
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
