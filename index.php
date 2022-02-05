@@ -66,6 +66,28 @@ $f3->route('GET|POST /profile' ,function ($f3) {
     echo $view->render('views/profile.html');
 
 });
+//intrest route
+$f3->route('GET|POST /intrest' ,function ($f3) {
+    //echo "<h1>hello world</h1>";
+
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+
+        //add data to session verible
+        if(isset($_POST['indoor'])){
+            $_SESSION['indoor']= implode(", ", $_POST['indoor']);
+        }
+        else{
+            $_SESSION['indoor']='none selected';
+        }
+
+        //redirect user to next page
+        $f3->reroute('summary');
+    }
+
+    $view = new Template();
+    echo $view->render('views/intrest.html');
+
+});
 
 
 
