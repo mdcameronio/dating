@@ -14,7 +14,7 @@ error_reporting(E_ALL);
 //start session
 session_start();
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 //require autoload file
 require_once ('vendor/autoload.php');
@@ -80,6 +80,13 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
             $_SESSION['indoor']='none selected';
         }
 
+        if(isset($_POST['outdoor'])){
+            $_SESSION['outdoor']= implode(", ", $_POST['outdoor']);
+        }
+        else{
+            $_SESSION['outdoor']='none selected';
+        }
+
         //redirect user to next page
         $f3->reroute('summary');
     }
@@ -89,7 +96,15 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
 
 });
 
+//route for summary
+$f3->route('GET /summary' ,function () {
+    //echo "<h1>hello world</h1>";
 
+    $view = new Template();
+    echo $view->render('views/summary.html');
+    //clear session data
+    session_destroy();
+});
 
 //run fat free
 $f3->run();
