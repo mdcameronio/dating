@@ -2,9 +2,9 @@
 
 
 function getIndoor(){
-    return ;
+    return array('tv', 'puzzles', 'movies', 'reading', 'cooking', 'playing cards','board games','video games');
 }
 
 function getOutdoor(){
-    return;
+    return array('hiking', 'walking', 'biking', 'climbing', 'swimming', 'collecting');
 }
