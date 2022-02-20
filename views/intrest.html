@@ -2,7 +2,7 @@
 <!--end nav bar-->
 <div class="container container-fluid border border-secondary mt-5 rounded shadow" >
 
-    <h1>Intrests</h1>
+    <h1>Interests</h1>
     <hr>
 
     <form action="#" method="post" class="form-check ">
@@ -10,114 +10,33 @@
 
         <!-- get intrest -->
         <div class="row">
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="tv" id="tv" name="indoor[]">
-                    <label class="form-check-label" for="tv">
-                        tv
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="puzzles" id="puzzles" name="indoor[]">
-                    <label class="form-check-label" for="puzzles">
-                       puzzles
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="tv" id="movies" name="indoor[]">
-                    <label class="form-check-label" for="movies">
-                       movies
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="reading" id="reading"  name="indoor[]">
-                    <label class="form-check-label" for="reading">
-                        reading
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="cooking" id="cooking" name="indoor[]">
-                    <label class="form-check-label" for="cooking">
-                        cooking
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="playing-cards" id="playing-cards"  name="indoor[]">
-                    <label class="form-check-label" for="playing-cards">
-                        playing cards
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="board" id="board" name="indoor[]">
-                    <label class="form-check-label" for="board">
-                        board games
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="video" id="video"  name="indoor[]">
-                    <label class="form-check-label" for="video">
-                        video games
-                    </label>
-                </div>
-            </div>
+            <repeat group="{{ @indoor }}" value="{{ @indoor }}">
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <label><input  class="form-check-input" type="checkbox" name="indoor[]" value="{{ @indoor }}"> {{ ucfirst(@indoor) }}</label><br>
+                            </div>
+                        </div>
+                    </repeat>
         </div>
+        <check if="{{ isset(@errors['indoor']) }}">
+            <span class="err">{{ @errors['indoor'] }}</span>
+        </check>
         <br>
 
         <!--get outside intrest-->
         <h6>out-door interests</h6>
         <div class="row">
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="hiking" id="hiking" name="outdoor[]">
-                    <label class="form-check-label" for="hiking">
-                        hiking
-                    </label>
+            <repeat group="{{ @outdoor }}" value="{{ @outdoor }}">
+                <div class="col-lg-3">
+                    <div class="form-check">
+                        <label><input  class="form-check-input" type="checkbox" name="outdoor[]" value="{{ @outdoor }}"> {{ ucfirst(@outdoor) }}</label><br>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="walking" id="walking" name="outdoor[]">
-                    <label class="form-check-label" for="walking">
-                        walking
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="biking" id="biking" name="outdoor[]">
-                    <label class="form-check-label" for="biking">
-                        biking
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="climbing" id="climbing"  name="outdoor[]">
-                    <label class="form-check-label" for="climbing">
-                        climbing
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="swimming" id="swimming" name="outdoor[]">
-                    <label class="form-check-label" for="swimming">
-                        swimming
-                    </label>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="collecting" id="collecting" name="outdoor[]">
-                    <label class="form-check-label" for="collecting">
-                        collecting
-                    </label>
-                </div>
-
-            </div>
+            </repeat>
         </div>
+        <check if="{{ isset(@errors['outdoor']) }}">
+            <span class="err">{{ @errors['outdoor'] }}</span>
+        </check>
         <div class="text-right ">
             <input class=" btn btn-primary btn-sm mb-2" type="submit" value="Next>">
         </div>

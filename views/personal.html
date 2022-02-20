@@ -13,24 +13,37 @@
     <div class="row">
         <div class="col-sm-6 ">
 
-            <form action="#" method="post">
+            <form   method="post" action="#">
                 <div class="form-group">
                     <label for="fname">First Name</label>
-                    <input type="text" class="form-control" id="fname" name="fname" placeholder="first name">
+                    <input type="text" class="form-control" id="fname" name="fname" placeholder="first name" value="{{@fname}}">
                 </div>
+                <check if="{{ isset(@errors['fname']) }}">
+                    <span class="err">{{ @errors['fname'] }}</span>
+                </check>
+
+
                 <div class="form-group">
                     <label for="lname">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lname" placeholder="last name">
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="last name" value="{{@lname}}">
                 </div>
+                <check if="{{ isset(@errors['lname']) }}">
+                    <span class="err">{{ @errors['lname'] }}</span>
+                </check>
+
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" class="form-control" id="age" name="age" placeholder="age">
+                    <input type="text" class="form-control" id="age" name="age" placeholder="age" value="{{@age}}">
                 </div>
+                <check if="{{ isset(@errors['age']) }}">
+                    <span class="err">{{ @errors['age'] }}</span>
+                </check>
 
                 <!--radio gender-->
+                <p>Gender</p>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gen" id="inlineRadio1" value="male">
-                    <label class="form-check-label" for="inlineRadio1">male</label>
+                    <input class="form-check-input" type="radio" name="gen" id="gen" value="male">
+                    <label class="form-check-label" for="gen">male</label>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="gen" id="inlineRadio2" value="female">
@@ -43,8 +56,11 @@
                 <!--end radio-->
                 <div class="form-group">
                     <label for="age">phone number</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="phone" value="{{@phone}}">
                 </div>
+                <check if="{{ isset(@errors['phone']) }}">
+                    <span class="err">{{ @errors['phone'] }}</span>
+                </check>
                 <hr>
         </div>
         <div class="col-sm-6 " >

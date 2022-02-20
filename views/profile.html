@@ -17,8 +17,12 @@
                     <!--email-->
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+                        <input type="text" class="form-control" id="email"  name="email" placeholder="name@example.com" value="{{@email}}">
+
                     </div>
+                    <check if="{{ isset(@errors['email']) }}">
+                        <span class="err">{{ @errors['email'] }}</span>
+                    </check>
                     <!--state-->
                     <div class="form-group">
                         <label for="state">State</label>
@@ -39,13 +43,8 @@
                         <label class="form-check-label" for="inlineRadio3">other</label>
                     </div>
                     <!--end radio-->
-
-
-                <hr>
-
-
+                    <hr>
             </div>
-
             <div class="col-sm-6 " >
                 <div class="container container-fluid  " >
                     <div class="form-group">
