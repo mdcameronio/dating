@@ -9,3 +9,7 @@
 #cap{
     width: 200px;
 }
+
+.err{
+    color: darkred;
+}
