@@ -11,15 +11,24 @@ ob_start();
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
+require_once ('vendor/autoload.php');
+//require ('model/data-layer.php');
+//require ('model/data-Validation.php');
 //start session
 session_start();
 
-//var_dump($_SESSION);
+var_dump($_SESSION);
+
+//Create an instance of the Base class
+$f3 = Base::instance();
+$con = new Controller($f3);
+//$dataLayer = new DataLayer();
+
+
 
 //require autoload file
-require_once ('vendor/autoload.php');
-require ('model/data-layer.php');
-require ('model/data-Validation.php');
+
+
 //create instance of the base class
 $f3 = Base::instance();
 
@@ -28,8 +37,10 @@ $f3 = Base::instance();
 $f3->route('GET /' ,function () {
     //echo "<h1>hello world</h1>";
 
-    $view = new Template();
-    echo $view->render('views/home.html');
+    $GLOBALS['con']->home();
+
+//    $view = new Template();
+//    echo $view->render('views/home.html');
 
 });
 
@@ -45,31 +56,38 @@ $f3->route('GET|POST /personal' ,function ($f3) {
 
 //if form has been posted
     if($_SERVER['REQUEST_METHOD']=='POST') {
+        //get data
        $_SESSION['gen'] = $_POST['gen'];
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $age = $_POST['age'];
         $phone = $_POST['phone'];
 
-        if (validateName($fname)) {
-            $_SESSION['fname'] = $_POST['fname'];
+        //instatiate a member object
+            $member = new Member();
+            $_SESSION['member'] = $member;
+            //or could use
+        //$_SESSION['member'] = new Member();
+
+        if (Validator::validateName($fname)) {
+            $_SESSION['member']->setFname($fname)  ;
         } else {
             //set error
             $f3->set('errors["fname"]', 'Please enter a valid name');
         }
-        if (validateName($lname)) {
-            $_SESSION['lname'] = $_POST['lname'];
+        if (Validator::validateName($lname)) {
+            $_SESSION['member']->setLname($lname)  ;
         } else {
             //set error
             $f3->set('errors["lname"]', 'Please enter a valid name');
         }
-        if (validateAge($age)){
-            $_SESSION['age']=$_POST['age'];
+        if (Validator::validateAge($age)){
+            $_SESSION['member']->setAge($age)  ;
         }else{
             $f3->set('errors["age"]','Please enter a valid age');
         }
-        if (validPhone($phone)){
-            $_SESSION['phone']=$_POST['phone'];
+        if (Validator::validPhone($phone)){
+            $_SESSION['member']->setPhone($phone)  ;
         }else{
             $f3->set('errors["phone"]','Please enter a valid phone 000-000-0000');
         }
@@ -105,8 +123,8 @@ $f3->route('GET|POST /profile' ,function ($f3) {
         $_SESSION['state']=$_POST['state'];
         $_SESSION['seek']=$_POST['seek'];
         $_SESSION['bio']=$_POST['bio'];
-
-        if(validEmail($_POST['email'])){
+        $_SESSION['email']=$_POST['email'];
+        if(Validator::validateEmail($_POST['email'])){
             $_SESSION['email']=$_POST['email'];
         }else{
             $f3->set('errors["email"]','Please enter a valid email');
@@ -129,8 +147,8 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
     //echo "<h1>hello world</h1>";
 
     //get indoor interest
-    $f3->set('indoor',getIndoor());
-    $f3->set('outdoor',getOutdoor());
+    $f3->set('indoor',DataLayer::getIndoor());
+    $f3->set('outdoor',DataLayer::getOutdoor());
     //if form has been posted
     if($_SERVER['REQUEST_METHOD']=='POST'){
 
@@ -139,7 +157,7 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
 
             $indoor=$_POST['indoor'];
 
-            if(validIndoor($indoor)){
+            if(Validator::validIndoor($indoor)){
                 $indoor = implode(", ", $_POST['indoor']);
             }else{
                 $f3->set('errors["indoor"]','invalid selection');
@@ -152,7 +170,7 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
         if(isset($_POST['outdoor'])){
 //            $_SESSION['outdoor']= implode(", ", $_POST['outdoor']);
             $outdoor = $_POST['outdoor'];
-            if(validOutdoor($outdoor)){
+            if(Validator::validOutdoor($outdoor)){
                 $outdoor =implode(", ", $_POST['outdoor']);
             }else{
                 $f3->set('errors["outdoor"]','invalid selection');
