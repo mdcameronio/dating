@@ -1,5 +1,9 @@
 <?php
 
+/**
+ *328/dating/classes/member
+ * creates a member object
+ */
 class Member{
 
 
@@ -14,26 +18,7 @@ class Member{
     private $_seeking;
     private $_bio;
 
-//    /**
-//     * @param $_fname
-//     * @param $_age
-//     * @param $_gender
-//     * @param $_phone
-//     */
-//    public function __construct()
-//    {
-//        $this->_fname = "";
-//        $this->_age = "";
-//        $this->_gender = "";
-//        $this->_phone = "";
-//
-//
-////        $this->_fname = $_fname;
-////        $this->_age = $_age;
-////        $this->_gender = $_gender;
-////        $this->_phone = $_phone;
-////        $_fname, $_age, $_gender, $_phone
-//    }
+
     public function __construct()
     {
     }
