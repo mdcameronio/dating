@@ -17,7 +17,7 @@ require_once ('vendor/autoload.php');
 //start session
 session_start();
 
-var_dump($_SESSION);
+//var_dump($_SESSION);
 
 //Create an instance of the Base class
 $f3 = Base::instance();
@@ -48,65 +48,7 @@ $f3->route('GET /' ,function () {
 $f3->route('GET|POST /personal' ,function ($f3) {
     //echo "<h1>hello world</h1>";
 
-    //initialize input varibles
-    $fname="";
-    $lname="";
-    $age="";
-    $phone="";
-
-//if form has been posted
-    if($_SERVER['REQUEST_METHOD']=='POST') {
-        //get data
-       $_SESSION['gen'] = $_POST['gen'];
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
-        $age = $_POST['age'];
-        $phone = $_POST['phone'];
-
-        //instatiate a member object
-            $member = new Member();
-            $_SESSION['member'] = $member;
-            //or could use
-        //$_SESSION['member'] = new Member();
-
-        if (Validator::validateName($fname)) {
-            $_SESSION['member']->setFname($fname)  ;
-        } else {
-            //set error
-            $f3->set('errors["fname"]', 'Please enter a valid name');
-        }
-        if (Validator::validateName($lname)) {
-            $_SESSION['member']->setLname($lname)  ;
-        } else {
-            //set error
-            $f3->set('errors["lname"]', 'Please enter a valid name');
-        }
-        if (Validator::validateAge($age)){
-            $_SESSION['member']->setAge($age)  ;
-        }else{
-            $f3->set('errors["age"]','Please enter a valid age');
-        }
-        if (Validator::validPhone($phone)){
-            $_SESSION['member']->setPhone($phone)  ;
-        }else{
-            $f3->set('errors["phone"]','Please enter a valid phone 000-000-0000');
-        }
-
-        //if form valid reroute to next page
-        if (empty($f3->get('errors'))) {
-            $f3->reroute('profile');
-        }
-    }
-
-    //stiky varibles f3 hive
-    $f3->set('fname',$fname);
-    $f3->set('lname',$lname);
-    $f3->set('age',$age);
-    $f3->set('phone',$phone);
-
-    //if form invalid repost page with errors
-    $view = new Template();
-    echo $view->render('views/personal.html');
+  $GLOBALS['con']->personal();
 
 });
 
@@ -114,31 +56,7 @@ $f3->route('GET|POST /personal' ,function ($f3) {
 $f3->route('GET|POST /profile' ,function ($f3) {
     //echo "<h1>hello world</h1>";
 
-    $email="";
-
-
-
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-
-        $_SESSION['state']=$_POST['state'];
-        $_SESSION['seek']=$_POST['seek'];
-        $_SESSION['bio']=$_POST['bio'];
-        $_SESSION['email']=$_POST['email'];
-        if(Validator::validateEmail($_POST['email'])){
-            $_SESSION['email']=$_POST['email'];
-        }else{
-            $f3->set('errors["email"]','Please enter a valid email');
-        }
-        //redirect user to next page
-        if (empty($f3->get('errors'))) {
-            $f3->reroute('intrest');
-        }
-//        $f3->reroute('intrest');
-    }
-
-    $f3->set('email',$email);
-    $view = new Template();
-    echo $view->render('views/profile.html');
+  $GLOBALS['con']->profile();
 
 });
 
@@ -146,49 +64,7 @@ $f3->route('GET|POST /profile' ,function ($f3) {
 $f3->route('GET|POST /intrest' ,function ($f3) {
     //echo "<h1>hello world</h1>";
 
-    //get indoor interest
-    $f3->set('indoor',DataLayer::getIndoor());
-    $f3->set('outdoor',DataLayer::getOutdoor());
-    //if form has been posted
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-
-        //add data to session verible
-        if(isset($_POST['indoor'])){
-
-            $indoor=$_POST['indoor'];
-
-            if(Validator::validIndoor($indoor)){
-                $indoor = implode(", ", $_POST['indoor']);
-            }else{
-                $f3->set('errors["indoor"]','invalid selection');
-            }
-        }
-        else{
-            $_SESSION['indoor']='none selected';
-        }
-
-        if(isset($_POST['outdoor'])){
-//            $_SESSION['outdoor']= implode(", ", $_POST['outdoor']);
-            $outdoor = $_POST['outdoor'];
-            if(Validator::validOutdoor($outdoor)){
-                $outdoor =implode(", ", $_POST['outdoor']);
-            }else{
-                $f3->set('errors["outdoor"]','invalid selection');
-            }
-        }
-        else{
-            $_SESSION['outdoor']='none selected';
-        }
-        //redirect user to next page
-        if (empty($f3->get('errors'))) {
-            $_SESSION['indoor'] = $indoor;
-            $_SESSION['outdoor']=$outdoor;
-            $f3->reroute('summary');
-        }
-    }
-
-    $view = new Template();
-    echo $view->render('views/intrest.html');
+   $GLOBALS['con']->intrest();
 
 });
 
@@ -196,10 +72,7 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
 $f3->route('GET /summary' ,function () {
     //echo "<h1>hello world</h1>";
 
-    $view = new Template();
-    echo $view->render('views/summary.html');
-    //clear session data
-    session_destroy();
+   $GLOBALS['con']->summary();
 });
 
 //run fat free

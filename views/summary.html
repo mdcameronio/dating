@@ -7,34 +7,66 @@
 
         <div class="col-sm-6 ">
             <ul class="list-group">
-                <li class="list-group-item">Name: {{ @SESSION.member->getFname() }} {{ @SESSION.member->getLname() }} </li>
-                <li class="list-group-item">Gender: {{ @SESSION.gen }} </li>
-                <li class="list-group-item">Age: {{ @SESSION.member->getAge() }}</li>
-                <li class="list-group-item">Phone: {{ @SESSION.member->getPhone() }}</li>
-                <li class="list-group-item">Email: {{ @SESSION.email }}</li>
-                <li class="list-group-item">State: {{ @SESSION.state }}</li>
-                <li class="list-group-item">Seeking: {{ @SESSION.seek }}</li>
-                <li class="list-group-item">Interests: {{ @SESSION.indoor }} {{ @SESSION.outdoor }}</li>
+
+                <check if="{{ isset(@SESSION['pmember']) }}">
+                    <true>
+                        <li class="list-group-item">Name: {{ @SESSION.pmember->getFname() }} {{ @SESSION.pmember->getLname() }}</li>
+                        <li class="list-group-item">Gender: {{@SESSION.pmember->getGender()}} </li>
+                        <li class="list-group-item">Age: {{ @SESSION.pmember->getAge() }}</li>
+                        <li class="list-group-item">Phone: {{ @SESSION.pmember->getPhone() }}</li>
+                        <li class="list-group-item">Email: {{ @SESSION.pmember->getEmail() }}</li>
+                        <li class="list-group-item">State: {{ @SESSION.pmember->getState() }}</li>
+                        <li class="list-group-item">Seeking: {{ @SESSION.pmember->getSeeking() }}</li>
+                        <li class="list-group-item">Interests: <repeat group="{{@SESSION.pmember->getInDoorInterests()}} " value="{{ @fruit }}">
+                            {{ trim(@fruit) }}
+                        </repeat>
+                        <repeat group="{{@SESSION.pmember->getOutDoorInterests()}} " value="{{ @fruit }}">
+                            {{ trim(@fruit) }}
+                        </repeat>
+                        </li>
+                        <li class="list-group-item">premium member</li>
+                    </true>
+                    <false>
+                        <li class="list-group-item">Name: {{ @SESSION.member->getFname() }} {{ @SESSION.member->getLname() }}</li>
+                        <li class="list-group-item">Gender: {{ @SESSION.member->getGender() }} </li>
+                        <li class="list-group-item">Age: {{ @SESSION.member->getAge() }}</li>
+                        <li class="list-group-item">Phone: {{ @SESSION.member->getPhone() }}</li>
+                        <li class="list-group-item">Email: {{ @SESSION.member->getemail() }}</li>
+                        <li class="list-group-item">State: {{ @SESSION.member->getstate() }}</li>
+                        <li class="list-group-item">Seeking: {{ @SESSION.member->getseeking() }}</li>
+
+                    </false>
+                </check>
             </ul>
         </div>
-
-
-
-
         <div class="col-sm-6 text-center">
             <img src="images/cap.png" id="cap" alt="captain americas loves you">
             <div class="p-2 text-left">
                 <h6 class="">Biography</h6>
-                <p>{{ @SESSION.bio }}</p>
-                <p>{{@SESSION.error}}</p>
+                <p>
+                    <check if="{{ isset(@SESSION['pmember']) }}">
+                    <true>
+                        {{ @SESSION.pmember->getbio()}}
+                    </true>
+                        <false>
+                            {{ @SESSION.member->getbio() }}
+                        </false>
+                    </check>
+                    </p>
             </div>
-
         </div>
-
-
     </div>
     <div class="text-center ">
         <input class=" btn btn-primary btn-sm mb-2" type="submit" value="Contact Me!">
 
     </div>
 </div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
