@@ -63,6 +63,7 @@ class Controller
                     $this->_f3->set('errors["phone"]','Please enter a valid phone 000-000-0000');
                 }
                 if (empty($this->_f3->get('errors'))) {
+                    $_SESSION['pmember']->setPremium(1);
                     $this->_f3->reroute('profile');
                 }
             }else {
@@ -96,6 +97,7 @@ class Controller
 
             //if form valid reroute to next page
             if (empty($this->_f3->get('errors'))) {
+                $_SESSION['member']->setPremium(0);
                 $this->_f3->reroute('profile');
             }
         }
@@ -205,11 +207,41 @@ class Controller
     function summary()
     {
 
-//        print_r($_SESSION['member']);
+//        echo "here";
+        if(isset($_SESSION['pmember']))
+        {
+            global $dataLayer;
+            $mem = $_SESSION['pmember'];
+            var_dump($mem);
+            $dataLayer->saveMember($mem);
+
+            echo"wtf mate";
+        }else
+        {
+            global $dataLayer;
+            $dataLayer->saveMember($_SESSION['member']);
+            echo"wtf reg";
+//            $GLOBALS['dataLayer']->saveMember($_SESSION['member']);
+        }
+
         $view = new Template();
         echo $view->render('views/summary.html');
         //clear session data
-        session_destroy();
+//        session_destroy();
+    }
+
+    function admin()
+    {
+        //Get the data from the model
+        global $dataLayer;
+       $order= $dataLayer->getMember();
+       $this->_f3->set('orders',$order);
+//        $GLOBALS['dataLayer']->getMembers();
+//        $this->_f3->set('orders', $orders);
+
+        //Display the view page
+        $view = new Template();
+        echo $view->render('views/admin.html');
     }
 
 }

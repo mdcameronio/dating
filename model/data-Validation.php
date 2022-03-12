@@ -32,7 +32,8 @@ class Validator
     static function validPhone($phone)
     {
         $phone = self::test_input($phone);
-        return preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $phone);
+//        return preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $phone);
+        return $phone;
     }
 
 
@@ -76,7 +77,7 @@ class Validator
     {
         $data = trim($data);
         $data = stripslashes($data);
-        $data = htmlspecialchars($data);
+//        $data = htmlspecialchars($data);
         return $data;
     }
 }

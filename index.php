@@ -11,9 +11,9 @@ ob_start();
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
+//require autoload file
 require_once ('vendor/autoload.php');
-//require ('model/data-layer.php');
-//require ('model/data-Validation.php');
+
 //start session
 session_start();
 
@@ -22,12 +22,25 @@ session_start();
 //Create an instance of the Base class
 $f3 = Base::instance();
 $con = new Controller($f3);
-//$dataLayer = new DataLayer();
+$dataLayer = new DataLayer();
 
 
-
-//require autoload file
-
+//$result = $dataLayer->getMember();
+//var_dump($result);
+//$test = new Member();
+//
+//$test->setFname("bary");
+//$test->setLname("hary");
+//$test->setAge(22);
+//$test->setBio("long walks on the beach");
+//$test->setGender("male");
+//$test->setEmail("hip@home.com");
+//$test->setPremium(1);
+//$test->setPhone(222-2222);
+//$test->setSeeking("female");
+//$test->setState("wa");
+//
+//$dataLayer->saveMember($test);
 
 //create instance of the base class
 $f3 = Base::instance();
@@ -35,18 +48,13 @@ $f3 = Base::instance();
 
 //define a default root
 $f3->route('GET /' ,function () {
-    //echo "<h1>hello world</h1>";
 
     $GLOBALS['con']->home();
-
-//    $view = new Template();
-//    echo $view->render('views/home.html');
 
 });
 
 //personal route
 $f3->route('GET|POST /personal' ,function ($f3) {
-    //echo "<h1>hello world</h1>";
 
   $GLOBALS['con']->personal();
 
@@ -54,7 +62,6 @@ $f3->route('GET|POST /personal' ,function ($f3) {
 
 //profile route
 $f3->route('GET|POST /profile' ,function ($f3) {
-    //echo "<h1>hello world</h1>";
 
   $GLOBALS['con']->profile();
 
@@ -62,7 +69,6 @@ $f3->route('GET|POST /profile' ,function ($f3) {
 
 //intrest route
 $f3->route('GET|POST /intrest' ,function ($f3) {
-    //echo "<h1>hello world</h1>";
 
    $GLOBALS['con']->intrest();
 
@@ -70,9 +76,13 @@ $f3->route('GET|POST /intrest' ,function ($f3) {
 
 //route for summary
 $f3->route('GET /summary' ,function () {
-    //echo "<h1>hello world</h1>";
 
    $GLOBALS['con']->summary();
+});
+
+$f3->route('GET /admin' ,function () {
+
+    $GLOBALS['con']->admin();
 });
 
 //run fat free

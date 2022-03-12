@@ -8,7 +8,7 @@
         <div class="col-sm-6 ">
             <ul class="list-group">
 
-                <check if="{{ isset(@SESSION['pmember']) }}">
+                <check if="{{ isset(@SESSION['pmember'])  }}">
                     <true>
                         <li class="list-group-item">Name: {{ @SESSION.pmember->getFname() }} {{ @SESSION.pmember->getLname() }}</li>
                         <li class="list-group-item">Gender: {{@SESSION.pmember->getGender()}} </li>

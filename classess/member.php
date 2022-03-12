@@ -17,6 +17,11 @@ class Member{
     private $_state;
     private $_seeking;
     private $_bio;
+    private $_premium;
+
+
+
+
 
 
     public function __construct()
@@ -24,7 +29,21 @@ class Member{
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getPremium()
+    {
+        return $this->_premium;
+    }
 
+    /**
+     * @param mixed $premium
+     */
+    public function setPremium($premium)
+    {
+        $this->_premium = $premium;
+    }
 
 
     /**
@@ -170,6 +189,8 @@ class Member{
     {
         $this->_bio = $bio;
     }
+
+
 
 
 }
