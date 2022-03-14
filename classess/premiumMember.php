@@ -3,6 +3,7 @@
 /**
  *328/dating/classes/premiumMember
  * creates a premium member
+ * extends member
  */
 class PremiumMember extends Member{
 

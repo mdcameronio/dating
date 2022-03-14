@@ -30,7 +30,7 @@ class DataLayer
 //         1 defione query
         $sql = "INSERT INTO member (FName,LName,age,gender,phone,email,state,seeking,bio,premium,interest)
                             VALUES (:FName,:LName,:age,:gender,:phone,:email,:state,:seeking,:bio,:premium,:interest)" ;
-        echo "after sql ".$member->getFname();
+
 //        2 prepair statment
         $statement = $this->_dbh->prepare($sql);
 
@@ -47,7 +47,7 @@ class DataLayer
         }
 
 
-        echo $interest;
+
 //        3 bind parameters
         $statement->bindParam(':FName',$member->getFname());
         $statement->bindParam(':LName',$member->getLname());
@@ -80,31 +80,13 @@ class DataLayer
 
         //4. Execute the query
         $statement->execute();
-        echo "yay";
+
         //5. Process the results (get the primary key)
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
 
-
-//    function getMembers()
-//    {
-//        //1. Define the query
-//        $sql = "SELECT * FROM member";
-//
-//        //2. Prepare the statement
-//        $statement = $this->_dbh->prepare($sql);
-//
-//        //3. Bind the parameters
-//
-//        //4. Execute the query
-//        $statement->execute();
-//
-//        //5. Process the results (get the primary key)
-//        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-//        return $result;
-//    }
 
     /**
      * @return string[]

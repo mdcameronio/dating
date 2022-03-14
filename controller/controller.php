@@ -2,15 +2,28 @@
 
 //  328/my-diner/controller/controller.php
 
+/**
+ *328/dating/controller/controller
+ * this file is the controller for dating app
+ *
+ */
 class Controller
 {
     private $_f3; //F3 object
 
+    /**
+     * @param $f3
+     *
+     */
     function __construct($f3)
     {
         $this->_f3 = $f3;
     }
     //define default route
+
+    /**
+     *route for home page
+     */
     function home()
     {
         session_destroy();
@@ -18,6 +31,9 @@ class Controller
         echo $view->render('views/home.html');
     }
 
+    /**
+     *route for personal page
+     */
     function personal()
     {
         //initialize input varibles
@@ -26,7 +42,7 @@ class Controller
         $age="";
         $phone="";
 
-//if form has been posted
+        //if form has been posted
         if($_SERVER['REQUEST_METHOD']=='POST') {
 
             //get data
@@ -58,6 +74,7 @@ class Controller
                     $this->_f3->set('errors["age"]','Please enter a valid age');
                 }
                 if (Validator::validPhone($phone)){
+                    $phone = str_replace("-","",$phone);
                     $_SESSION['pmember']->setPhone($phone)  ;
                 }else{
                     $this->_f3->set('errors["phone"]','Please enter a valid phone 000-000-0000');
@@ -113,6 +130,9 @@ class Controller
         echo $view->render('views/personal.html');
     }
 
+    /**
+     *route for profile
+     */
     function profile()
     {
         $email="";
@@ -154,6 +174,9 @@ class Controller
         echo $view->render('views/profile.html');
     }
 
+    /**
+     *route for interest
+     */
     function intrest()
     {
         //get indoor interest
@@ -204,32 +227,38 @@ class Controller
         echo $view->render('views/intrest.html');
     }
 
+    /**
+     *roiute for summary
+     */
     function summary()
     {
 
-//        echo "here";
+
         if(isset($_SESSION['pmember']))
         {
             global $dataLayer;
             $mem = $_SESSION['pmember'];
-            var_dump($mem);
+
             $dataLayer->saveMember($mem);
 
-            echo"wtf mate";
+
         }else
         {
             global $dataLayer;
             $dataLayer->saveMember($_SESSION['member']);
-            echo"wtf reg";
+
 //            $GLOBALS['dataLayer']->saveMember($_SESSION['member']);
         }
 
         $view = new Template();
         echo $view->render('views/summary.html');
         //clear session data
-//        session_destroy();
+        session_destroy();
     }
 
+    /**
+     *route for admin
+     */
     function admin()
     {
         //Get the data from the model
